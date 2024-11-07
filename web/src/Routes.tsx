@@ -7,28 +7,36 @@
 // 'src/pages/HomePage/HomePage.js'         -> HomePage
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
-import { Router, Route, PrivateSet, Set } from "@redwoodjs/router";
+import {Router, Route, PrivateSet, Set} from "@redwoodjs/router";
 
-import { useAuth } from "./auth";
+import {useAuth} from "./auth";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
+import NewEventPage from "./pages/NewEventPage/NewEventPage";
 import AuthLayout from "src/layouts/AuthLayout/AuthLayout";
+import InteriorLayout from "src/layouts/InteriorLayout/InteriorLayout";
 
 
 const Routes = () => {
   return (
     <Router useAuth={useAuth}>
-      <Route path="/new-event" page={NewEventPage} name="newEvent" />
+
       {/* eslint-disable-next-line react/jsx-no-undef */}
       <PrivateSet unauthenticated="login">
-        <Route path="/dashboard" page={DashboardPage} name="dashboard" />
+        <Set wrap={AuthLayout}>
+          <Route path="/event/new" page={NewEventPage} name="newEvent"/>
+        </Set>
+        <Set wrap={InteriorLayout}>
+          <Route path="/dashboard" page={DashboardPage} name="dashboard"/>
+          <Route path="/event/{id:String}" page={GroupInvitePage} name="groupInvite"/>
+        </Set>
       </PrivateSet>
       <Set wrap={AuthLayout}>
-        <Route path="/login" page={LoginPage} name="login" />
-        <Route path="/signup" page={SignupPage} name="signup" />
-        <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword" />
-        <Route path="/reset-password" page={ResetPasswordPage} name="resetPassword" />
+        <Route path="/login" page={LoginPage} name="login"/>
+        <Route path="/signup" page={SignupPage} name="signup"/>
+        <Route path="/forgot-password" page={ForgotPasswordPage} name="forgotPassword"/>
+        <Route path="/reset-password" page={ResetPasswordPage} name="resetPassword"/>
       </Set>
-      <Route notfound page={NotFoundPage} />
+      <Route notfound page={NotFoundPage}/>
     </Router>
   );
 };

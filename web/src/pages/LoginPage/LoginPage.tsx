@@ -10,7 +10,7 @@ import {
 } from "@redwoodjs/forms";
 import { Link, navigate, routes } from "@redwoodjs/router";
 import { Metadata } from "@redwoodjs/web";
-import { toast, Toaster } from "@redwoodjs/web/toast";
+import { toast } from "@redwoodjs/web/toast";
 
 import { useAuth } from "src/auth";
 import ShowHidePassword from "src/components/ShowHidePassword/ShowHidePassword";
@@ -50,7 +50,6 @@ const LoginPage = () => {
       <Metadata title="Login" />
 
 
-      <Toaster toastOptions={{ className: "rw-toast", duration: 6000 }} />
 
         <HeaderWithRulers className="text-white mb-8" heading="LOGIN"/>
         <Form onSubmit={onSubmit} className={'auth-form'}>
